@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     <mapper namespace="com.songaogchao.lx.dao.PlanDao">
+     <select id="list" resultType="Plan">
+    SELECT * from 2019plan p LEFT JOIN department d on p.did=d.id
+     <where>
+    
+     <if test="pname!=null and pname!=''">
+       p.pname like "%"#{pname}"%"
+     </if>
+     
+     </where>
+     </select>
+     
+     <delete id="deleteBid">
+         DELETE FROM 2019plan WHERE pid in(${ids})    
+     </delete>
+     
+     <select id="xiangq" resultType="Plan">
+     	SELECT * from 2019plan p LEFT JOIN department d on p.did=d.id WHERE p.pid=#{pid}     
+     </select>
+     
+     <select id="depar" resultType="Depar">
+     select * from department
+     </select>
+     
+     
+     
+     <insert id="toadd">
+     INSERT INTO 2019plan(pid,pname,amount,manager,content,did)VALUES 
+		(#{pid},#{pname},#{amount},#{manager},#{content},#{did})
+     
+     </insert>
+     
+     </mapper>
